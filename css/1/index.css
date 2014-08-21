@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+.table{
+	margin:5px 10px 0px 10px;
+}
+.table tr th{
+	font-size:14px;
+	text-align:center;
+}
+
+.table tr td{
+	font-size:14px;
+	font-weight:normal;
+	overflow:hidden; 
+	text-align:center;
+	vertical-align:middle;
+}
+
+.table tr td.content{
+	text-align:left;
+	padding:0 0 0 10px;
+	vertical-align:middle;
+	font-size:14px;
+}
+
+.table tr td.nodetails{
+	text-align:left;
+	padding:0 0 0 50px;
+	vertical-align:middle;
+	color:red;
+	font-size:14px;
+}
+

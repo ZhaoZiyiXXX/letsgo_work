@@ -39,7 +39,7 @@ function _query_assoc($sql){
 	$link = _connect_mysql();
 	/* Select queries return a resultset */
 	$result = $link->query($sql);
-	$result ->setFetchMode(PDO::FETCH_ASSOC);
+	@$result ->setFetchMode(PDO::FETCH_ASSOC);
 	$ret = $result->fetchAll();
 	return $ret;
 }

@@ -8,25 +8,3 @@
 .menu ul li{
 	text-align:center;
 }
-
-.main{
-	border:1px solid #eee;
-	height:auto;
-	margin-top:10px;
-	margin-bottom:30px;
-	margin-left:-1px;
-}
-
-.main div.title{
-	text-align:center;
-	background-color:#428BCA;
-}
-
-.main div.title p{
-	height:30px;
-	line-height:30px;
-	font-size:16px;
-	font-weight:bold;
-	color:#fff;
-}
-

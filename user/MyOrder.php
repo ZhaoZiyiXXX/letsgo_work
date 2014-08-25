@@ -24,7 +24,7 @@
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
- $staffid = isset($_POST['staffid']) ? $_POST['staffid'] :null;
+ $staffid = isset($_COOKIE['staffid']) ? $_COOKIE['staffid'] :null;
  ?>
   <script>
  $(document).ready(function(){
@@ -55,7 +55,7 @@ define('IN_TG',true);
 					<th class="title">订单详情</th>
 				</tr>
 				<?php require_once $GLOBALS["rootPath"].'/includes/function.php';
-						if(!_get_orders(123)){
+						if(!_get_orders($staffid)){
 							echo '<td colspan="4" class="nodetails">没有你的订单</td>';
 						}
 				?>

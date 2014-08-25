@@ -8,6 +8,8 @@
 }
 
 .table tr td{
+	heigth:30px;
+	line-height:30px;
 	font-size:14px;
 	font-weight:normal;
 	overflow:hidden; 
@@ -29,4 +31,27 @@
 	color:red;
 	font-size:14px;
 }
+.main{
+	border:1px solid #eee;
+	height:auto;
+	margin-top:10px;
+	margin-bottom:30px;
+	margin-left:-1px;
+}
 
+.main p.note{
+	padding-left:20px;
+	
+}
+.main div.title{
+	text-align:center;
+	background-color:#428BCA;
+}
+
+.main div.title p{
+	height:30px;
+	line-height:30px;
+	font-size:16px;
+	font-weight:bold;
+	color:#fff;
+}

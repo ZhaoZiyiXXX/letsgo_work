@@ -24,7 +24,19 @@
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
+ require_once $GLOBALS["rootPath"].'/includes/function.php';
  ?>
+ <script>
+ $(document).ready(function(){
+ 	  var ulGet=document.getElementById("leftmenu");
+	  var liList=ulGet.getElementsByTagName("li");
+	  for(var i=0;i<liList.length;i++)
+	  {
+	      liList[i].className="";
+	  }
+	  liList[0].className="active"; 
+})
+</script>
 </head>
 <body>
     <div class="container-fluid">
@@ -34,8 +46,9 @@ define('IN_TG',true);
 		<div class="col-md-10 main">
 			<div class="title">
 				<p>页面标题</p>
-				
 			</div>
+			<p class="note"></p>
+			
 		</div>
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
     </div>

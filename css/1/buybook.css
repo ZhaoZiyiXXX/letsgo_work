@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+.car{
+	display:block;
+	position:absolute;
+	width:300px;
+	position:fixed;
+	top:100px;
+	right:5px;
+	z-index:9999;
+}
+
+.car h3{
+	font-size:14px;
+}
+
+.car .panel-body{
+	font-size:10px;
+	min-height:200px;
+}
+
+.car .panel-body table th{
+	font-size:10px;
+}
+
+.car .panel-body table td{
+	font-size:10px;
+}
+
+.btn-info{
+	font-size:12px;
+	padding:0px 15px 5px 15px;
+	line-height:25px;
+	height:25px;
+	display:block;
+	margin:0px auto;
+}

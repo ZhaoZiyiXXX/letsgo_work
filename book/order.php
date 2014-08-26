@@ -54,7 +54,10 @@ define('IN_TG',true);
 			    type:"ISBN"
 			},
 			function(data,status){
-				alert("Data: " +JSON.stringify(data) + "\nStatus: " + status);
+				var bt=baidu.template;
+				var tempdata = data.data;
+				var html=bt('t:search_isbn',tempdata);
+				document.getElementById('result').innerHTML=html;
 			});
 		}else{
 			$.get("http://api.jige.olege.com/book?",
@@ -64,7 +67,6 @@ define('IN_TG',true);
 			    dataType : "json",
 			},
 			function(data,status){
-				//alert("Data: " +data.data[0].id + "\nStatus: " + status);
 				var bt=baidu.template;
 				var html=bt('t:search_result',data);
 				document.getElementById('result').innerHTML=html;
@@ -162,7 +164,6 @@ define('IN_TG',true);
 	</div>
 	
 <script id='t:search_result' type="text/template">
-
 <!-- 模板部分 -->
 <% for(var i = 0; i<data.length;i++){%>
 				<div class="row mbookinbox">
@@ -187,6 +188,33 @@ define('IN_TG',true);
 					</div>
 				</div>
 <%}%>
+<!-- 模板结束 -->   
+</script>
+<script id='t:search_isbn' type="text/template">
+<!-- 模板部分 -->
+
+				<div class="row mbookinbox">
+					<div class="col-lg-2 col-md-2 col-sm-2">
+						<img src="<%=imgpath%>" alt="" class="pic" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-7">
+						<p class="booktitle">
+							<span ><%=name%></span>
+						</p>
+						<p class="search_book_author" > 
+						<span class="search_now_price">&yen;<%=fixedPrice%></span>
+						<span><%=author%></span>
+						</p>
+						<p class="search_book_author" > 
+						<span > <%=isbn%></span>
+						<span>  /<%=press%></span>
+						</p>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3">
+						<button type="button" class="btn btn-info flagsold  btn-block" onclick="add2car('<%=id%>')">加入购物车</button>
+					</div>
+				</div>
+
 <!-- 模板结束 -->   
 </script>
 </body>

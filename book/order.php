@@ -22,6 +22,7 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/BaiduTemplate.js"></script>
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
@@ -63,12 +64,29 @@ define('IN_TG',true);
 			    dataType : "json",
 			},
 			function(data,status){
-				alert("Data: " +data.data[0].id + "\nStatus: " + status);
+				//alert("Data: " +data.data[0].id + "\nStatus: " + status);
+				var bt=baidu.template;
+				var html=bt('t:search_result',data);
+				document.getElementById('result').innerHTML=html;
 			});
 		}
 	});
-})
-
+});
+ var count = 0;
+ function add2car(bookid){
+		$.get("http://api.jige.olege.com/book?",
+		{
+			q:bookid,
+			type:"id",
+			dataType : "json",
+		},
+		function(data,status){
+			count =count + 1;
+			data = data.data;
+			item ="<tr id='"+ count +"'><td>"+data['name']+"</td><td>"+data['press']+"</td><td>"+data['fixedPrice']+"</td><td><a href='#'>删除</a></td></tr>";  
+			$('#bookcar').append(item);  
+			});
+	}
 </script>
 </head>
 <body>
@@ -97,6 +115,30 @@ define('IN_TG',true);
 	            </ul>
 	          </div>
 		    </div><!-- /input-group -->
+			<div class="bookbox" id="result">
+				<div class="row mbookinbox">
+					<div class="col-lg-2 col-md-2 col-sm-2">
+						<img src="#" alt="" class="pic" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-7">
+						<p class="booktitle">
+							<span >这是一个标题</span>
+						</p>
+						<p class="search_book_author" > 
+						<span class="search_now_price">&yen;41.30</span>
+						<span>明日科技　编著</span>
+						</p>
+						<p class="search_book_author" > 
+						<span > 9787040212778</span>
+						<span > /2012-09-01</span>
+						<span>  /清华大学出版社</span>
+						</p>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3">
+						<button type="button" class="btn btn-info flagsold  btn-block" >加入购物车</button>
+					</div>
+				</div>
+			</div>
 		  </div><!-- /.col-lg-6 -->
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
     </div>
@@ -105,18 +147,47 @@ define('IN_TG',true);
 		<div class="panel-heading">
     		<h3 class="panel-title">我的购物车</h3>
 		</div>
-		<div class="panel-body">
-    	<table class="table">
-    		<tr>
-    			<th>书名</th>
-    			<th>出版社</th>
-    			<th>定价</th>
-    			<th>操作</th>
-    		</tr>
-    	</table>
+		<div class="panel-body" >
+			<table class="table"  id="bookcar">
+	    		<tr>
+	    			<th>书名</th>
+	    			<th>出版社</th>
+	    			<th>定价</th>
+	    			<th>操作</th>
+	    		</tr>
+    		</table>
     	<button type="button" class="btn 	btn-info" >生成订单</button>
   		</div>
 		</div>
 	</div>
+	
+<script id='t:search_result' type="text/template">
+
+<!-- 模板部分 -->
+<% for(var i = 0; i<data.length;i++){%>
+				<div class="row mbookinbox">
+					<div class="col-lg-2 col-md-2 col-sm-2">
+						<img src="<%=data[i].imgpath%>" alt="" class="pic" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-7">
+						<p class="booktitle">
+							<span ><%=data[i].name%></span>
+						</p>
+						<p class="search_book_author" > 
+						<span class="search_now_price">&yen;<%=data[i].fixedPrice%></span>
+						<span><%=data[i].author%></span>
+						</p>
+						<p class="search_book_author" > 
+						<span > <%=data[i].isbn%></span>
+						<span>  /<%=data[i].press%></span>
+						</p>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3">
+						<button type="button" class="btn btn-info flagsold  btn-block" onclick="add2car('<%=data[i].id%>')">加入购物车</button>
+					</div>
+				</div>
+<%}%>
+<!-- 模板结束 -->   
+</script>
 </body>
 </html>

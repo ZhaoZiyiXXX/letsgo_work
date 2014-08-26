@@ -1,4 +1,4 @@
-/**
+﻿/**
  * baiduTemplate简单好用的Javascript模板引擎 1.0.6 版本
  * http://baidufe.github.com/BaiduTemplate
  * 开源协议：BSD License
@@ -214,4 +214,3 @@
     };
 
 })(window);
-

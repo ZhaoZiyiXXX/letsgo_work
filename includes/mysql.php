@@ -25,6 +25,7 @@ function _mysql_exec($sql){
 	$link = _connect_mysql();
 	try {
 		$link->exec($sql);
+ 		//die(print_r($link->errorInfo(), true)); 
 	} catch (PDOException $e) {
 		print "Error!: " . $e->getMessage() . "<br/>";
 		die();

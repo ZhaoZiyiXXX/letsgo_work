@@ -28,6 +28,7 @@ if(!defined('IN_TG')){
 			<li><a href="#">财务审批</a></li>
 			<hr />
 			<!-- 超级管理员菜单 -->
+			<li><a href="/supply/jinhuo.php">供应商数据录入</a></li>
 			<li><a href="#">注册审批</a></li>
 			<li><a href="#">发货状态修改</a></li>
 		</ul>

@@ -6,23 +6,46 @@ require_once $GLOBALS["rootPath"].'/includes/mysql.php';
 
 
 function _get_user_tuihuo($staffid){
-	
-}
-
-function _get_book_flowinfo($string){
-	if(!$string){
+	if(!$staffid){
 		return false;
 		exit();
 	}
 	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssr.book_price AS `定价`,".
 			"ssb.count AS `数量`,ssb.datetime AS `签收时间`,ssb.count AS `签收数量` FROM s_supplier_bookflow AS ssb ,s_supplier_record AS ssr ,s_supplier_info AS ssi".
-			" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.id = '".$string."'";
-	$result = _query_one_assoc($sql);
+			" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.id = '".$staffid."'";
+	$result = _query_assoc($sql);
 	if(empty($result)){
 		return false;
 		exit();
 	}
 	return $result;
+}
+
+function _get_book_flowinfo(){
+	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_price AS `定价`,ssr.book_isbn AS ISBN,ssb.count AS `数量`,".
+	"ls.`name` AS `退货人`,ssr.place AS `地点` FROM s_supplier_bookback AS ssb ,s_supplier_bookflow AS ssf ,s_supplier_record AS ssr ,letsgo_staff ".
+	"AS ls WHERE ssb.flowid = ssf.id AND ssf.staff_id = ls.staffId AND ssf.record_id = ssr.id ";
+	$result = _query_one_assoc($sql);
+	if(empty($result)){
+		return false;
+		exit();
+	}
+	foreach($result as $row){
+		echo '<tr>';
+		if(_get_stringlen($row["书名"]) > 15){
+			echo '<td>'.csubstr($row["书名"],0,15).'</td>';
+		}else{
+			echo '<td>'.$row["书名"].'</td>';
+		}
+		echo '<td>'.$row["出版社"].'</td>';
+		echo '<td>'.$row["ISBN"].'</td>';
+		echo '<td>'.$row["定价"].'</td>';
+		echo '<td>'.$row["数量"].'</td>';
+		echo '<td>'.$row["退货人"].'</td>';
+		echo '<td>'.$row["地点"].'</td>';
+		echo'</tr>';
+	}
+	return true;
 }
 
 

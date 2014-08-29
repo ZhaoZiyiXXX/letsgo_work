@@ -17,7 +17,7 @@ if(!defined('IN_TG')){
 			<li><a href="/user/MyOrder.php">我的订单</a></li>
 			<li><a href="/user/mybook.php">教材签收</a></li>
 			<li><a href="/user/mytuihuo.php">我的退货</a></li>
-			<li><a href="#">退书资源池</a></li>
+			<li><a href="/book/alltuihuo.php">退书资源池</a></li>
 			<li><a href="#">教材结账</a></li>
 			<hr />
 			<li><a href="#">我的账户</a></li>

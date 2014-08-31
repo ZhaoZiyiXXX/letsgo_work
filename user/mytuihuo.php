@@ -55,10 +55,11 @@ define('IN_TG',true);
 					<th class="title">定价</th>
 					<th class="title">数量</th>
 					<th class="title">时间</th>
+					<th class="title">操作</th>
 				</tr>
 				<?php 
 						if(!_get_user_tuihuo($_COOKIE["staffid"])){
-							echo '<td colspan="5" class="nodetails">没有退货详情</td>';
+							echo '<td colspan="6" class="nodetails">没有退货详情</td>';
 						}
 				?>
 			</table>

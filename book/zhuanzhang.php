@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Letsgo内部办公系统-申请退货</title>
+    <title>Letsgo内部办公系统-转账</title>
 
     <!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -25,33 +25,31 @@
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
  require_once $GLOBALS["rootPath"].'/includes/function.php';
+ $bookbackid = 0;
  if(isset($_POST['count'])){
-	if(empty($_POST['bookflowid'])){
-		_alert_back('传入的参数有误');
-		exit;
-	}
-	_set_tuihuo($_POST['bookflowid'],$_POST['count']);
-	$bookflowid = $_POST['bookflowid'];
-}else{
-	if(empty($_GET["bookflowid"])){
+ 	if(empty($_POST['bookbackid'])){
+ 		_alert_back('传入的参数有误');
+ 		exit;
+ 	}
+ 	//_set_zhuanzhang($_POST['bookbackid'],$_POST['count']);
+ }else{
+	if(empty($_GET["bookbackid"])){
 		_alert_back("非法的参数");
 		exit;
 	}
-	$bookflowid = $_GET["bookflowid"];
+	$bookbackid = $_GET["bookbackid"];
 }
 
-$bookinfo = _get_book_flowinfo_byid($bookflowid);
-$count_tuihuo = _get_book_tuihuo_count($bookflowid);
+$bookinfo = _get_book_backinfo_byid($bookbackid);
 if(!$bookinfo){
 	$bookinfo = array(
 			'书名' => '',
 			'出版社' => '',	
 			'ISBN' => '',
-			'签收时间' => '',
-			'签收数量' =>0,
+			'转账数量' =>0,
 	); 
 }
-$count = intval($bookinfo['签收数量']) - intval($count_tuihuo);
+
  ?>
 </head>
 <body>
@@ -60,25 +58,23 @@ $count = intval($bookinfo['签收数量']) - intval($count_tuihuo);
     <?php include_once $GLOBALS["rootPath"].'/includes/header.inc.php';?>
 		<div class="col-md-12 main">
 			<div class="title">
-				<p>退货申请</p>
+				<p>转账申请</p>
 			</div>
 			<ul class="list-group">
 			  <li class="list-group-item">书名：<?php echo $bookinfo["书名"]?></li>
 			  <li class="list-group-item">出版社：<?php echo $bookinfo["出版社"]?></li>
 			  <li class="list-group-item">ISBN：<?php echo $bookinfo["ISBN"]?></li>
-			  <li class="list-group-item">签收时间：<?php echo $bookinfo["签收时间"]?></li>
-			  <li class="list-group-item">签收数量：<?php echo $bookinfo["签收数量"]?></li>
-			  <li class="list-group-item">已经退货数量：<?php echo $count_tuihuo?></li>
+			  <li class="list-group-item">转账数量：<?php echo $bookinfo["转账数量"]?></li>
 			</ul>
 			<form class="form-inline" role="form" style="margin-bottom: 20px;" method="post">
 			  <div class="form-group">
-			    <p class="form-control-static">请输入退货数量（1-<?php echo $count?>之间的整数）</p>
+			    <p class="form-control-static">转给</p>
 			  </div>
 			  <div class="form-group">
-			    <input type="text" class="form-control" id="count" name="count" placeholder="退货数量">
+			    <input type="text" class="form-control" id="count" name="count" placeholder="员工工号">
 			  </div>
-			  <input type="hidden" name = "bookflowid" value="<?php echo $bookflowid ?>" >
-			  <button type="submit" class="btn btn-default">确认退货</button>
+			  <input type="hidden" name = "bookflowid" value="<?php echo $bookbackid ?>" >
+			  <button type="submit" class="btn btn-default">确认转账</button>
 			</form>
 		</div>
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>

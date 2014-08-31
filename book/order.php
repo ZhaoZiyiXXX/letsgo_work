@@ -86,7 +86,7 @@ define('IN_TG',true);
 			count =count + 1;
 			data = data.data;
 			item ="<tr id='"+ count +"'><td>"+data['name']+"</td><td>"+data['press']+"</td><td>"+data['fixedPrice']+"</td><td><a href='#'>删除</a></td></tr>";  
-			$('#bookcar').append(item);  
+			$('#bookcar').append(item);
 			});
 	}
 </script>
@@ -118,28 +118,7 @@ define('IN_TG',true);
 	          </div>
 		    </div><!-- /input-group -->
 			<div class="bookbox" id="result">
-				<div class="row mbookinbox">
-					<div class="col-lg-2 col-md-2 col-sm-2">
-						<img src="#" alt="" class="pic" />
-					</div>
-					<div class="col-lg-7 col-md-7 col-sm-7">
-						<p class="booktitle">
-							<span >这是一个标题</span>
-						</p>
-						<p class="search_book_author" > 
-						<span class="search_now_price">&yen;41.30</span>
-						<span>明日科技　编著</span>
-						</p>
-						<p class="search_book_author" > 
-						<span > 9787040212778</span>
-						<span > /2012-09-01</span>
-						<span>  /清华大学出版社</span>
-						</p>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3">
-						<button type="button" class="btn btn-info flagsold  btn-block" >加入购物车</button>
-					</div>
-				</div>
+
 			</div>
 		  </div><!-- /.col-lg-6 -->
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>

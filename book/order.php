@@ -193,7 +193,6 @@ define('IN_TG',true);
 						<button type="button" class="btn btn-info flagsold  btn-block" onclick="add2car('<%=id%>')">加入购物车</button>
 					</div>
 				</div>
-
 <!-- 模板结束 -->   
 </script>
 </body>

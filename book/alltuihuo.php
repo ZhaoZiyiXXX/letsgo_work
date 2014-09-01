@@ -18,9 +18,9 @@
 	
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
@@ -34,7 +34,7 @@ define('IN_TG',true);
 	  {
 	      liList[i].className="";
 	  }
-	  liList[0].className="active"; 
+	  liList[9].className="active"; 
 })
 </script>
 </head>
@@ -45,9 +45,9 @@ define('IN_TG',true);
 	<?php require_once $GLOBALS["rootPath"].'/includes/leftmenu.php';?>
 		<div class="col-md-10 main">
 			<div class="title">
-				<p>页面标题</p>
+				<p>退书资源池</p>
 			</div>
-			<p class="note"></p>
+			<p class="note">这里面展示的教材是团队队员想要退的教材，如果有你想要的请直接和对应的队员联系，由他（她）转账给你即可</p>
 			<table class="table table-bordered">
 				<tr>
 					<th class="title">书名</th>

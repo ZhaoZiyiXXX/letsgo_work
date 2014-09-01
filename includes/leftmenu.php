@@ -10,7 +10,7 @@ if(!defined('IN_TG')){
 			<li class="active"><a href="/index.php">公告栏</a></li>
 			<li><a href="/user/info.php" >个人信息</a></li>
 			<li><a href="/user/changeinfo.php">修改信息</a></li>
-			<li><a href="#">查询他人信息</a></li>
+			<li><a href="/staffinfo.php">查询他人信息</a></li>
 			<hr />
 			<li><a href="/book/order.php">教材预定</a></li>
 			<li><a href="#">查看购物车</a></li>

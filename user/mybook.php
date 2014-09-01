@@ -56,6 +56,7 @@ define('IN_TG',true);
 					<th class="title">定价</th>
 					<th class="title">售价折扣</th>
 					<th class="title">数量</th>
+					<th class="title">类型</th>
 					<th class="title">签收时间</th>
 					<th class="title">操作</th>
 				</tr>

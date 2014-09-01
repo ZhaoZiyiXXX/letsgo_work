@@ -18,30 +18,32 @@
 	
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
  require_once $GLOBALS["rootPath"].'/includes/function.php';
  if(isset($_POST['count'])){
-	if(empty($_POST['bookflowid'])){
+	if(empty($_GET["recordid"])||empty($_GET["bookflowid"])){
 		_alert_back('传入的参数有误');
 		exit;
 	}
-	_set_tuihuo($_POST['bookflowid'],$_POST['count']);
-	$bookflowid = $_POST['bookflowid'];
+	_set_tuihuo($_POST['recordid'],$_POST['count']);
+	_alert_back('申请退货成功,请刷新查看最新退货数量，或者到我的退货查看退货详情，并关闭此页面');
+	exit;
 }else{
-	if(empty($_GET["bookflowid"])){
+	if(empty($_GET["recordid"])||empty($_GET["bookflowid"])){
 		_alert_back("非法的参数");
 		exit;
 	}
+	$recordid = $_GET["recordid"];
 	$bookflowid = $_GET["bookflowid"];
 }
 
 $bookinfo = _get_book_flowinfo_byid($bookflowid);
-$count_tuihuo = _get_book_tuihuo_count($bookflowid);
+$count_tuihuo = _get_book_tuihuo_count($recordid,$_COOKIE["staffid"]);
 if(!$bookinfo){
 	$bookinfo = array(
 			'书名' => '',
@@ -78,6 +80,7 @@ $count = intval($bookinfo['签收数量']) - intval($count_tuihuo);
 			    <input type="text" class="form-control" id="count" name="count" placeholder="退货数量">
 			  </div>
 			  <input type="hidden" name = "bookflowid" value="<?php echo $bookflowid ?>" >
+			  <input type="hidden" name = "recordid" value="<?php echo $recordid ?>" >
 			  <button type="submit" class="btn btn-default">确认退货</button>
 			</form>
 		</div>

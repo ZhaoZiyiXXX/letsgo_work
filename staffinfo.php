@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Letsgo内部办公系统-我的退货</title>
+    <title>Letsgo内部办公系统-查询他人信息</title>
 
     <!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -21,9 +21,10 @@
     <script src="/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/BaiduTemplate.js"></script>
 <?php
 define('IN_TG',true);
- include dirname(__FILE__).'/../configs/configs.php';
+ include dirname(__FILE__).'/configs/configs.php';
  require_once $GLOBALS["rootPath"].'/includes/function.php';
  ?>
  <script>
@@ -34,7 +35,21 @@ define('IN_TG',true);
 	  {
 	      liList[i].className="";
 	  }
-	  liList[8].className="active"; 
+	  liList[3].className="active"; 
+
+	  $("#submit").click(function(){
+		  $.get("staffsearch.php",
+			{
+				q:$("#search").val(),
+			},
+			function(data,status){
+				//var bt=baidu.template;
+				//alert(data[0].name);
+				//var html=bt('t:search_result',data);
+				//document.getElementById('result').innerHTML=html;
+				document.getElementById('result').innerHTML=data;
+			});
+	})
 })
 </script>
 </head>
@@ -45,26 +60,22 @@ define('IN_TG',true);
 	<?php require_once $GLOBALS["rootPath"].'/includes/leftmenu.php';?>
 		<div class="col-md-10 main">
 			<div class="title">
-				<p>我的退货</p>
+				<p>查询队员信息</p>
 			</div>
 			<p class="note"></p>
-			<table class="table table-bordered">
-				<tr>
-					<th class="title">渠道</th>
-					<th class="title">书名</th>
-					<th class="title">出版社</th>
-					<th class="title">定价</th>
-					<th class="title">数量</th>
-					<th class="title">时间</th>
-					<th class="title">操作</th>
-				</tr>
-				<?php 
-						if(!_get_user_tuihuo($_COOKIE["staffid"])){
-							echo '<td colspan="7" class="nodetails">没有退货详情</td>';
-						}
-				?>
-			</table>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1" >
+			    <div class="input-group">
+			      <input type="text" class="form-control" id="search">
+			      <div class="input-group-btn">
+		            <button id="submit" type="button" class="btn btn-default" style="min-width: 100px;">搜 索</button>
+		          </div>
+			    </div><!-- /input-group -->
+			  </div><!-- /.col-lg-6 -->
+		  </div>
+		  <div  class="row" id="result" style="padding: 10px"></div>
 		</div>
+		
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
     </div>
 	</div>

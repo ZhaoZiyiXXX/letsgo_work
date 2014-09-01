@@ -3,7 +3,6 @@ if(!defined('IN_TG')){
 	exit("Access Defined!");
 }
 require_once $GLOBALS["rootPath"].'/includes/mysql.php';
-
 /**
  * 获取某人的退货信息
  * @param unknown $staffid
@@ -14,9 +13,9 @@ function _get_user_tuihuo($staffid){
 		return false;
 		exit();
 	}
-	$sql = "SELECT ssbb.id AS `id`,ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_price AS `定价`,ssbb.count AS `数量`,ssbb.time AS `时间`".
-			" FROM s_supplier_bookflow AS ssb ,s_supplier_bookback AS ssbb ,s_supplier_record AS ssr WHERE ssb.record_id = ssr.id AND ".
-			"ssbb.flowid = ssb.id AND ssb.staff_id = '".$staffid."'";
+	$sql = "SELECT ssr.`id` AS `id` , ssb.`id` AS `fid` ,ssi.`name` AS `渠道`,ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssr.book_price AS `定价`,".
+	"ssr.book_off AS `售价折扣`,ssb.count AS `数量`,ssb.datetime AS `时间` FROM s_supplier_bookflow AS ssb ,s_supplier_record AS ssr ,s_supplier_info AS ssi".
+	" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.`type`  = 1 AND ssb.staff_id = '".$staffid."'";
 	$result = _query_assoc($sql);
 	if(empty($result)){
 		return false;
@@ -24,6 +23,7 @@ function _get_user_tuihuo($staffid){
 	}
 	foreach($result as $row){
 		echo '<tr>';
+		echo '<td>'.$row["渠道"].'</td>';
 		if(_get_stringlen($row["书名"]) > 15){
 			echo '<td>'.csubstr($row["书名"],0,15).'</td>';
 		}else{
@@ -43,9 +43,9 @@ function _get_user_tuihuo($staffid){
  * @return boolean
  */
 function _get_book_flowinfo(){
-	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_price AS `定价`,ssr.book_isbn AS ISBN,ssb.count AS `数量`,".
-	"ls.`name` AS `退货人`,ssr.place AS `地点` FROM s_supplier_bookback AS ssb ,s_supplier_bookflow AS ssf ,s_supplier_record AS ssr ,letsgo_staff ".
-	"AS ls WHERE ssb.flowid = ssf.id AND ssf.staff_id = ls.staffId AND ssf.record_id = ssr.id ";
+	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssr.book_price AS `定价`,ssb.count AS `数量`,".
+			"ls.`name` AS `退货人` ,ssr.place AS `地点` FROM s_supplier_record AS ssr ,s_supplier_bookflow AS ssb ,letsgo_staff AS ls WHERE ssb.record_id = ssr.id AND ".
+			"ssb.staff_id = ls.staffId AND ssb.type = 1";
 	$result = _query_assoc($sql);
 	if(empty($result)){
 		return false;
@@ -75,8 +75,10 @@ function _get_book_flowinfo(){
  * @param unknown $bookflowid
  * @param unknown $count
  */
-function _set_tuihuo($bookflowid,$count){
-	$sql = "INSERT INTO s_supplier_bookback (`flowid`,`count`) VALUES ('".$bookflowid."','".$count."')";
+function _set_tuihuo($recordid,$count){
+	$date =  date('Y-m-d H:i:s',time());
+	$sql = "INSERT INTO s_supplier_bookflow (record_id,count,staff_id,type,status,datetime) VALUES (".$recordid.",".$count.",".$_COOKIE['staffid'].",1,1,'".$date."')";
+	//$sql = "INSERT INTO s_supplier_bookback (`flowid`,`count`) VALUES ('".$bookflowid."','".$count."')";
 	_mysql_exec($sql);
 }
 
@@ -87,10 +89,10 @@ function _set_tuihuo($bookflowid,$count){
  * @return Ambigous <unknown, NULL>
  */
 
-function _get_book_flowinfo_byid($flowid){
-	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,".
-			"ssb.datetime AS `签收时间`,ssb.count AS `签收数量` FROM s_supplier_bookflow AS ssb ,s_supplier_record AS ssr ,s_supplier_info AS ssi".
-			" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.id = '".$flowid."'";
+function _get_book_flowinfo_byid($bookflowid){
+	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssb.datetime AS `签收时间`,".
+			"ssb.count AS `签收数量` FROM s_supplier_record AS ssr ,s_supplier_bookflow AS ssb WHERE ssb.record_id = ssr.id AND".
+			" ssb.type = 0 AND ssb.id =  '".$bookflowid."'";
 	return _query_one_assoc($sql);
 }
 
@@ -106,8 +108,8 @@ function _get_book_backinfo_byid($backid){
  * @param unknown $bookflowid
  * @return number|unknown
  */
-function _get_book_tuihuo_count($bookflowid){
-	$sql ="SELECT count FROM s_supplier_bookback WHERE flowid = '".$bookflowid."'";
+function _get_book_tuihuo_count($recordid,$staffid){
+	$sql ="SELECT count FROM s_supplier_bookflow WHERE type=1 AND staff_id  = '".$staffid."' AND record_id = '".$recordid."'";
 	$result = _query_assoc($sql);
 	if(empty($result)){
 		return 0;
@@ -131,9 +133,9 @@ function _get_user_books($string){
 		return false;
 		exit();
 	}
-	$sql = "SELECT ssb.`id` AS `id` ,ssi.`name` AS `渠道`,ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssr.book_price AS `定价`,".
+	$sql = "SELECT ssr.`id` AS `id` , ssb.`id` AS `fid` ,ssi.`name` AS `渠道`,ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssr.book_price AS `定价`,".
 	"ssr.book_off AS `售价折扣`,ssb.count AS `数量`,ssb.datetime AS `签收时间` FROM s_supplier_bookflow AS ssb ,s_supplier_record AS ssr ,s_supplier_info AS ssi".
-	" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.staff_id = '".$string."'";
+	" WHERE ssb.record_id = ssr.id AND ssr.supplier_id = ssi.id AND ssb.`type`  = 0 AND ssb.staff_id = '".$string."'";
 	$result = _query_assoc($sql);
 	if(empty($result)){
 		return false;
@@ -152,8 +154,9 @@ function _get_user_books($string){
 		echo '<td>'.$row["定价"].'</td>';
 		echo '<td>'.$row["售价折扣"].'</td>';
 		echo '<td>'.$row["数量"].'</td>';
+		echo '<td>进货</td>';
 		echo '<td>'.$row["签收时间"].'</td>';
-		echo '<td><div class="btn-group"><button onClick="javascript:window.location.href='.'\'/book/tuihuo.php?bookflowid='.$row["id"].'\';" type="button" class="btn btn-default">申请退货</button><button type="button" class="btn btn-default">添加备注</button></div></td>';
+		echo '<td><div class="btn-group"><button onClick="javascript:window.open(\'/book/tuihuo.php?recordid='.$row["id"].'&bookflowid='.$row["fid"].'\' ,\'_blank\',\'\');" type="button" class="btn btn-default">申请退货</button></div></td>';
 		echo'</tr>';
 	}
 	return true;
@@ -292,6 +295,7 @@ function _set_cookies($key,$value,$time = 0){
 function _alert_back($string){
 	echo '<script type="text/javascript">alert("'.$string.'");history.back(-1);</script>';
 }
+
 /**
  * 获取全部公告列表
  */

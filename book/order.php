@@ -101,7 +101,6 @@ define('IN_TG',true);
 				<p>教材预定</p>
 			</div>
 			<p class="note">按名称搜索是搜索我们自己的数据库，按ISBN搜索是从外部抓取图书信息，建议名称搜索不到再使用ISBN搜索</p>
-
 		</div>
 		<div class="col-lg-6 col-md-6" style="margin-top: -20px">
 		    <div class="input-group">
@@ -171,7 +170,6 @@ define('IN_TG',true);
 </script>
 <script id='t:search_isbn' type="text/template">
 <!-- 模板部分 -->
-
 				<div class="row mbookinbox">
 					<div class="col-lg-2 col-md-2 col-sm-2">
 						<img src="<%=imgpath%>" alt="" class="pic" />

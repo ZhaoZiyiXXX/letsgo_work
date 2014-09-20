@@ -33,7 +33,7 @@ function _get_user_tuihuo($staffid){
 		echo '<td>'.$row["定价"].'</td>';
 		echo '<td>'.$row["数量"].'</td>';
 		echo '<td>'.$row["时间"].'</td>';
-		echo '<td><div class="btn-group"><button onClick="javascript:window.location.href='.'\'/book/zhuanzhang.php?bookbackid='.$row["id"].'\';" type="button" class="btn btn-default">转给他人</button></div></td>';
+		echo '<td><div class="btn-group"><button onClick="javascript:window.location.href='.'\'/book/zhuanzhang.php?recordid='.$row["id"].'\';" type="button" class="btn btn-default">转给他人</button></div></td>';
 		echo'</tr>';
 	}
 	return true;
@@ -78,7 +78,6 @@ function _get_book_flowinfo(){
 function _set_tuihuo($recordid,$count){
 	$date =  date('Y-m-d H:i:s',time());
 	$sql = "INSERT INTO s_supplier_bookflow (record_id,count,staff_id,type,status,datetime) VALUES (".$recordid.",".$count.",".$_COOKIE['staffid'].",1,1,'".$date."')";
-	//$sql = "INSERT INTO s_supplier_bookback (`flowid`,`count`) VALUES ('".$bookflowid."','".$count."')";
 	_mysql_exec($sql);
 }
 
@@ -88,7 +87,6 @@ function _set_tuihuo($recordid,$count){
  * @param unknown $flowid
  * @return Ambigous <unknown, NULL>
  */
-
 function _get_book_flowinfo_byid($bookflowid){
 	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssb.datetime AS `签收时间`,".
 			"ssb.count AS `签收数量` FROM s_supplier_record AS ssr ,s_supplier_bookflow AS ssb WHERE ssb.record_id = ssr.id AND".
@@ -96,10 +94,15 @@ function _get_book_flowinfo_byid($bookflowid){
 	return _query_one_assoc($sql);
 }
 
-function _get_book_backinfo_byid($backid){
-	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssbb.count AS `转账数量`".
-			" FROM s_supplier_bookback AS ssbb ,s_supplier_bookflow AS ssb ,s_supplier_record AS ssr WHERE ssbb.flowid ".
-			"= ssb.id AND ssb.record_id = ssr.id AND ssbb.id = '".$backid."'";
+/**
+ * 获取某个转账图书的详情
+ * @param unknown $recordid
+ * @return Ambigous <unknown, NULL>
+ */
+function _get_book_backinfo_byid($recordid){
+	$sql = "SELECT ssr.book_name AS `书名`,ssr.book_press AS `出版社`,ssr.book_isbn AS ISBN,ssb.datetime AS `签收时间`,".
+			"ssb.count AS `签收数量` FROM s_supplier_record AS ssr ,s_supplier_bookflow AS ssb WHERE ssb.record_id = ssr.id AND".
+			" ssb.type = 1 AND ssb.record_id =  '".$recordid."'";
 	return _query_one_assoc($sql);
 }
 

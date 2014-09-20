@@ -29,6 +29,7 @@ if(!defined('IN_TG')){
 			<hr />
 			<!-- 超级管理员菜单 -->
 			<li><a href="/supply/jinhuo.php">供应商数据录入</a></li>
+			<li><a href="/supply/jinhuofenpei.php">供应商数据分配</a></li>
 			<li><a href="#">注册审批</a></li>
 			<li><a href="#">发货状态修改</a></li>
 		</ul>

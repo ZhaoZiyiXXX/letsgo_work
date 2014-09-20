@@ -18,9 +18,9 @@
 	
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 <?php
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
@@ -33,11 +33,11 @@ define('IN_TG',true);
  	}
  	//_set_zhuanzhang($_POST['bookbackid'],$_POST['count']);
  }else{
-	if(empty($_GET["bookbackid"])){
+	if(empty($_GET["recordid"])){
 		_alert_back("非法的参数");
 		exit;
 	}
-	$bookbackid = $_GET["bookbackid"];
+	$recordid = $_GET["recordid"];
 }
 
 $bookinfo = _get_book_backinfo_byid($bookbackid);

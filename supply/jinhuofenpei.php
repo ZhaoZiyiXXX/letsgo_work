@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Letsgo内部办公系统-供应商数据导入</title>
+    <title>Letsgo内部办公系统-进货分配</title>
 
     <!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -35,9 +35,14 @@ define('IN_TG',true);
 	  {
 	      liList[i].className="";
 	  }
-	  liList[15].className="active"; 
+	  liList[16].className="active"; 
+	  $.get("getjinhuoinfo.php",
+				function(data,status){
+					document.getElementById('suppler_bookinfo').innerHTML=data;
+				});
 })
 </script>
+
 </head>
 <body>
     <div class="container-fluid">
@@ -46,40 +51,49 @@ define('IN_TG',true);
 	<?php require_once $GLOBALS["rootPath"].'/includes/leftmenu.php';?>
 		<div class="col-md-10 main">
 			<div class="title">
-				<p>导入供应商数据</p>
+				<p>进货分配</p>
 			</div>
 			<p class="note"></p>
-			<form action="jinhuochuli.php" method="post" enctype="multipart/form-data">
-			<div class="form-group">
-				<label for="place">选择供应商</label>
-				<select class="form-control" name="supplier_id">
-					 <option value=1>新华传媒</option>
-					 <option value=2>悦悦书店</option>
-					 <option value=3>网上补货</option>
-					 <option value=4>教材科取货</option>
-					 <option value=5>校内书店补货</option>
-					 <option value=6>团队库存</option>
-				</select>
-			</div>
-				<div class="form-group">
-				    <label for="place">送货地点</label>
-				    <input type="text" class="form-control" name="place" >
-			    </div>
-			    <div class="form-group">
-				    <label for="date">送货日期</label>
-				    <input type="text" class="form-control" name="date" >
-			    </div>
-			    <div class="form-group">
-				    <label for="name">订单名称</label>
-				    <input type="text" class="form-control" name="name" >
-			    </div>
-				<div class="form-group">
-					<span>选择上传的文件:</span>
-					<input type="hidden" name="MAX_FILE_SIZE" value="8000000">
-					<input type="file" name="file" id="file" /> 
+			<!--工作台 -->
+			<div class="row">
+				<div class="col-md-12">
+					<table id="suppler_bookinfo" class="table">
+					</table>
 				</div>
-				<input type="submit" name="submit" value="确定上传并处理" class="btn btn-info"/>
-			</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form class="form-inline fenpeibox" role="form">
+						<div class="form-group">
+						    <div class="input-group">
+						      <div class="input-group-addon">信息id</div>
+						      <input class="form-control" type="text" placeholder="id" style="max-width: 140px">
+						    </div>
+						    <div class="form-group">
+								<label for="place">是否分配完成</label>
+								<select class="form-control" name="supplier_id">
+									<option value=1>是</option>
+									<option value=0>否</option>
+								</select>
+							</div>
+					    </div>
+					    <br/>
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon">工号</div>
+					      <input class="form-control" type="text" placeholder="输入工号或姓名" style="max-width: 140px">
+					    </div>
+					    <button class="btn btn-default">查询</button>
+					    <label>赵子逸</label>
+					    <input class="form-control" type="text" placeholder="输入数量" style="max-width: 100px">
+					  </div>
+					  <br/>
+					  <div class="form-group">
+					  	<button type="submit" class="btn btn-info" style="min-width: 150px;margin:0px auto;">录入</button>
+					  </div>
+					</form>
+				</div>
+			</div><!--工作台结束 -->
 		</div>
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
     </div>

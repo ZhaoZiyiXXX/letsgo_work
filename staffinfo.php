@@ -43,10 +43,6 @@ define('IN_TG',true);
 				q:$("#search").val(),
 			},
 			function(data,status){
-				//var bt=baidu.template;
-				//alert(data[0].name);
-				//var html=bt('t:search_result',data);
-				//document.getElementById('result').innerHTML=html;
 				document.getElementById('result').innerHTML=data;
 			});
 	})

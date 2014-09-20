@@ -1,1 +1,17 @@
 @CHARSET "UTF-8";
+.fenpeibox{
+	padding:10px;
+}
+
+.fenpeibox div.form-group{
+	padding:5px 10px;
+}
+
+.fenpeibox div.input-group{
+	margin:5px 10px;
+}
+
+.fenpeibox label{
+	margin:5px 10px;
+}
+

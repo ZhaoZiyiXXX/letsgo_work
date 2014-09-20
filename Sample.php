@@ -48,8 +48,8 @@ define('IN_TG',true);
 				<p>页面标题</p>
 			</div>
 			<p class="note"></p>
-			
 		</div>
+		
 	<?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
     </div>
 	</div>

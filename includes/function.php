@@ -3,6 +3,32 @@ if(!defined('IN_TG')){
 	exit("Access Defined!");
 }
 require_once $GLOBALS["rootPath"].'/includes/mysql.php';
+
+
+function _post_new_finance($account,$count,$applicant,$director,$title,$process){
+	$date =  date('Y-m-d H:i:s',time());
+	$sql = "INSERT INTO letsgo_finance_waste_book (account,count,applicant,director,type,state,title,process) VALUES ('".$account.
+	"', '".$count."' ,'".$applicant."','".$director."','0','0','".$title."','".$date.":".$process."')";
+	$ret = _mysql_exec($sql);
+	return $ret;
+}
+/**
+ * 获取财务审批人姓名与工号
+ * 
+ * @return boolean
+ */
+function _get_finance_manager(){
+	$sql = "SELECT name,staffid FROM letsgo_staff WHERE roleType = 'level2' OR roleType = 'level3' OR roleType = 'admin' ";
+	$result = _query_assoc($sql);
+	if(empty($result)){
+		return false;
+		exit();
+	}
+	foreach($result as $row){
+		echo '<option value ="'.$row["staffid"].'">'.$row["name"].'</option>';
+	}
+	return true;
+}
 /**
  * 获取某人的退货信息
  * @param unknown $staffid

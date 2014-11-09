@@ -26,8 +26,10 @@ function _mysql_exec($sql){
 	try {
 		$link->exec($sql);
  		//die(print_r($link->errorInfo(), true)); 
+ 		return true;
 	} catch (PDOException $e) {
 		print "Error!: " . $e->getMessage() . "<br/>";
+		return false;
 		die();
 	}
 }

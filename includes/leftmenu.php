@@ -21,7 +21,7 @@ if(!defined('IN_TG')){
 			<li><a href="#">教材结账</a></li>
 			<hr />
 			<li><a href="#">我的账户</a></li>
-			<li><a href="#">提交报销</a></li>
+			<li><a href="/finance/baoxiao.php">提交报销</a></li>
 			<hr />
 			<!-- 校区主管菜单 -->
 			<li><a href="#">校区订单</a></li>

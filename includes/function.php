@@ -4,7 +4,6 @@ if(!defined('IN_TG')){
 }
 require_once $GLOBALS["rootPath"].'/includes/mysql.php';
 
-
 function _post_new_finance($account,$count,$applicant,$director,$title,$process){
 	$date =  date('Y-m-d H:i:s',time());
 	$sql = "INSERT INTO letsgo_finance_waste_book (account,count,applicant,director,type,state,title,process) VALUES ('".$account.

@@ -36,7 +36,6 @@ require dirname(__FILE__).'/configs/configs.php';
 })
 </script>
 </head>
-
 <body>
     <div class="container-fluid">
     <div class="row">

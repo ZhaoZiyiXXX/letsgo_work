@@ -18,7 +18,7 @@ if(!empty($_COOKIE["username"])){
 					<?php 
 					if(!isset($ret)) {
 						echo "<a class=\"menu-right\" href=\"/login/login.php\"><span class=\"glyphicon glyphicon-off\"></span> 登陆</a>" ;
-						echo "<a class=\"menu-right\" href=\"/register.php\"><span class=\"glyphicon glyphicon-pencil\"></span> 注 册</a>";
+						echo "<a class=\"menu-right\" href=\"/user/Register.php\"><span class=\"glyphicon glyphicon-pencil\"></span> 注 册</a>";
 					}else{
 						echo "<a class=\"menu-right\" href=\"/login/logout.php\"><span class=\"glyphicon glyphicon-log-out\"></span> 退出</a>";
 						echo "<a class=\"menu-right\" href=\"/user/info.php\"><span class=\"glyphicon glyphicon-pencil\"></span> 欢迎你：{$ret}</a>";

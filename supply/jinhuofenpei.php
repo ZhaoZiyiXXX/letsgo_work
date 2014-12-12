@@ -35,7 +35,7 @@ define('IN_TG',true);
 	  {
 	      liList[i].className="";
 	  }
-	  liList[16].className="active"; 
+	  liList[20].className="active"; 
 	  $.get("getjinhuoinfo.php",
 				function(data,status){
 					document.getElementById('suppler_bookinfo').innerHTML=data;

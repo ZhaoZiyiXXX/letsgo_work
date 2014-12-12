@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 .loginbox{
-	height:300px;
+	min-height:300px;
 	margin:100px auto 0 auto;
 }
 

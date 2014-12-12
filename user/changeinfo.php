@@ -97,8 +97,10 @@ define('IN_TG',true);
 				      <input type="password" class="form-control" id="password2" name="password2" placeholder="再次输入密码">
 				    </div>
 				  </div>
+				  
 				  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
+				    <p style="font-size:0.5em">tips:不能同时修改密码和个人信息，如果都需要修改请分别修改两次</p>
 				      <button type="submit" class="btn btn-default">确定修改</button>
 				    </div>
 				  </div>

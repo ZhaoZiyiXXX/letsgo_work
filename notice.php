@@ -35,15 +35,15 @@ if(isset($_GET['id'])){
 <body>
     <div class="container-fluid">
     <div class="row">
-    <?php include_once '/includes/header.inc.php';?>
-	<?php require_once '/includes/leftmenu.php';?>
+    <?php include_once $GLOBALS["rootPath"].'/includes/header.inc.php';?>
+	<?php require_once $GLOBALS["rootPath"].'/includes/leftmenu.php';?>
     <div class="col-md-10 main">
 		<h3><?php echo $notice['title'];?></h3>
 	<div class="box">
 		<p><?php echo $notice['content'];?></p>
 	</div>
     </div>
-    <?php include_once 'includes/footer.inc.php';?>
+    <?php include_once $GLOBALS["rootPath"].'/includes/footer.inc.php';?>
 	</div>
 	</div>
 </body>

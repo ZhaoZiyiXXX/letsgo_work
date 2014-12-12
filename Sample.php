@@ -22,6 +22,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="http://cdn.bootcss.com/js/bootstrap.min.js"></script>
 <?php
+
 define('IN_TG',true);
  include dirname(__FILE__).'/../configs/configs.php';
  require_once $GLOBALS["rootPath"].'/includes/function.php';

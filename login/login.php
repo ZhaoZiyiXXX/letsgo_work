@@ -23,11 +23,12 @@
     <script src="/js/bootstrap.min.js"></script>
 <?php
 define('IN_TG',true);
+if(!empty($_COOKIE['username'])){
+	header("location:../index.php");
+}
+define('ACCESS',true);
  include dirname(__FILE__).'/../configs/configs.php';
  //判断用户是否已经登录
- if(!empty($_COOKIE['username'])){
- 	header("location:../index.php");
- }
  ?>
 </head>
 <body>
@@ -40,9 +41,9 @@ define('IN_TG',true);
 			<div class="row">
 	   			<form class="form-horizontal" role="form" method="post" action="./loginaccess.php">
 				  <div class="form-group">
-				    <label for="inputEmail3" class="col-md-2 control-label">用户名</label>
+				    <label for="inputEmail3" class="col-md-2 control-label">工号</label>
 				    <div class="col-md-8">
-				      <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+				      <input type="text" class="form-control" id="username" name="username" placeholder="工号">
 				    </div>
 				  </div>
 				  <div class="form-group">

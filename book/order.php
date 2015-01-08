@@ -57,7 +57,7 @@ define('IN_TG',true);
 				var bt=baidu.template;
 				var tempdata = data.data;
 				var html=bt('t:search_isbn',tempdata);
-				document.getElementById('result').innerHTML=html;
+				$('#result').html(html);
 			});
 		}else{
 			$.get("http://api.jige.olege.com/book?",
